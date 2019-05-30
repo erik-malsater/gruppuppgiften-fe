@@ -7,15 +7,31 @@
 <body>
 
 <div id="animal-listing">
-    <label for="animal-select">Select a cat</label>
+    <label for="type-select">Select a type</label>
+    <select id="type-select" data-loaded="false">
+	</select>
+	<label for="animal-select">Select an animal</label>
     <select id="animal-select" data-loaded="false">
     </select>
     <p id="animal-description" data-loaded="false">Please make your selection</p>
 </div>
 <div id="animal-addition">
-    <label for="animal-to-add">Enter animal data to add (JSON format)</label>
-    <textarea id="animal-to-add"></textarea>
-    <button id="animal-add">Add animal</button>
+	<form id="animal-data">
+		<label for="add-type-select">Type</label>
+		<select id="add-type-select" data-loaded="false" name="type">
+		</select>
+		<label for="add-animal-name">Name: </label>
+		<input type="text" id="add-animal-name" name="name"/>
+		<label for="add-animal-color">Color: </label>
+		<input type="text" id="add-animal-color" name="color"/>
+		<label for="add-animal-age">Age: </label>
+		<input type="number" id="add-animal-age" name="age"/>
+	
+		<!-- <label for="animal-to-add">Enter animal data to add (JSON format)</label>
+		<textarea id="animal-to-add"></textarea> -->
+		
+		<button id="animal-add">Add animal</button>
+	</form>
 </div>
 <script src="./js/animalApp.js"></script>
 </body>
