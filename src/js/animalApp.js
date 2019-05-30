@@ -3,8 +3,9 @@
 
 (function IIFE(){
   const remoteUrl = 'localhost:3000';
-  let animalType = 'cat';
+  let animalType = '';
   const $animalSelect = document.getElementById('animal-select');
+  const $typeSelect = document.getElementById('type-select');
   const $animalDescription = document.getElementById('animal-description');
   const $animalToAdd = document.getElementById('animal-to-add');
   const $animalAdd = document.getElementById('animal-add');
@@ -23,6 +24,8 @@
     return $option;
   }
 
+  
+
   function populateSelect(type) {
     clearElement($animalSelect);
     $animalSelect.setAttribute('data-loaded', 'false');
@@ -30,7 +33,7 @@
       .then((response) => response.json())
       .then((data) => {
         const animals = data.data;
-        const $defaultOption = createOption(null, `Select ${animalType}`);
+        const $defaultOption = createOption(null, 'Select animal');
         $animalSelect.appendChild($defaultOption);
         animals.forEach((animal) => {
           const $option = createOption(animal.id, animal.name);
@@ -43,13 +46,13 @@
   function getByTypeAndId(type, id) {
     $animalDescription.setAttribute('data-loaded', 'false');
     clearElement($animalDescription);
-
+    
     fetch(`http://${remoteUrl}/${type}/${id}`)
       .then((response) => response.json())
       .then((data) => {
         let text = JSON.stringify(data.data, null, '\t');
         text = text.replace(/['"{}]+/g, '');
-        const $text = document.createTextNode(text);
+        const $text = document.createTextNode('Type: ' + type + ', ' + text);
         $animalDescription.appendChild($text);
         $animalDescription.setAttribute('data-loaded', 'true');
       });
@@ -59,6 +62,14 @@
     $animalSelect.addEventListener('change', (e) => {
       const id = e.target.selectedOptions[0].value;
       getByTypeAndId(animalType, id);
+    });
+  }
+
+  function listenToType(){
+    $typeSelect.addEventListener('change', (e) => {
+      const type = e.target.selectedOptions[0].value;
+      animalType = type;
+      populateSelect(type);
     });
   }
 
@@ -82,7 +93,7 @@
     })
   }
 
-  populateSelect(animalType);
   listenToSelect();
+  listenToType();
   listenToAdd();
 })();
