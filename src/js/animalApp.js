@@ -47,10 +47,9 @@
     fetch(`http://${remoteUrl}/${type}/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        //const $pre = document.createElement('pre');
-        const text = JSON.stringify(data.data, null, '\t');
+        let text = JSON.stringify(data.data, null, '\t');
+        text = text.replace(/['"{}]+/g, '');
         const $text = document.createTextNode(text);
-        //$pre.appendChild($preText);
         $animalDescription.appendChild($text);
         $animalDescription.setAttribute('data-loaded', 'true');
       });
