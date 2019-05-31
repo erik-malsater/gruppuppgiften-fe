@@ -1,4 +1,4 @@
-// globals document
+// globals document, window
 "use strict";
 
 (function IIFE(){
@@ -82,7 +82,17 @@
     })
   }
 
-  populateSelect(animalType);
-  listenToSelect();
-  listenToAdd();
+  function pageLoaded() {
+    populateSelect(animalType);
+    listenToSelect();
+    listenToAdd();
+  }
+
+  window.pageLoaded = pageLoaded;
+
+  module.exports = {
+      testString: function testString(str) {
+      return false;
+    }
+  };
 })();
