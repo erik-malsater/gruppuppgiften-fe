@@ -1,4 +1,4 @@
-// globals document, window
+// globals document, window, module
 "use strict";
 
 (function IIFE(){
@@ -7,12 +7,19 @@
   const $animalSelect = document.getElementById('animal-select');
   const $typeSelect = document.getElementById('type-select');
   const $animalDescription = document.getElementById('animal-description');
-  const $animalToAdd = document.getElementById('animal-to-add');
   const $animalAdd = document.getElementById('animal-add');
+  const $myForm = document.getElementById('animal-data');
 
   function clearElement(element) {
     while(element.firstChild) {
       element.removeChild(element.firstChild);
+    }
+  }
+
+  function clearForm(form) {
+    form[0].selectedIndex = 0;
+    for(let i = 1; i < form.length - 1; i++) {
+      form[i].value = '';
     }
   }
 
@@ -74,12 +81,17 @@
   }
 
   function listenToAdd() {
-    $animalAdd.addEventListener('click', () => {
+    $animalAdd.addEventListener('click', (e) => {
+      e.preventDefault();
       $animalAdd.setAttribute('data-loaded', 'false');
-      const dataText = $animalToAdd.value;
-      const dataObject = JSON.parse(dataText);
-      clearElement($animalToAdd);
-      fetch(`http://${remoteUrl}/${animalType}`, {
+      const type = $myForm[0].value;
+      const dataObject = {
+        name: $myForm[1].value,
+        color: $myForm[2].value,
+        age: $myForm[3].value
+      };
+      clearForm($myForm);
+      fetch(`http://${remoteUrl}/${type}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +100,7 @@
       })
         .then(() => {
           $animalAdd.setAttribute('data-loaded', 'true');
-          populateSelect(animalType);
+          populateSelect(type);
         });
     });
   }
