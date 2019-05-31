@@ -1,4 +1,4 @@
-// globals document
+// globals document, window
 "use strict";
 
 (function IIFE(){
@@ -93,7 +93,17 @@
     })
   }
 
-  listenToSelect();
-  listenToType();
-  listenToAdd();
+  function pageLoaded() {
+    listenToSelect();
+    listenToType();
+    listenToAdd();
+  }
+
+  window.pageLoaded = pageLoaded;
+
+  module.exports = {
+      testString: function testString(str) {
+      return false;
+    }
+  };
 })();
