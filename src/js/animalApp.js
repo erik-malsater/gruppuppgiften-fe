@@ -102,8 +102,9 @@
   window.pageLoaded = pageLoaded;
 
   module.exports = {
-      testString: function testString(str) {
+    testString: function testString(str) {
       return false;
-    }
+    },
+    createOption  
   };
 })();
