@@ -90,7 +90,7 @@
           $animalAdd.setAttribute('data-loaded', 'true');
           populateSelect(animalType);
         });
-    })
+    });
   }
 
   function pageLoaded() {
@@ -102,8 +102,9 @@
   window.pageLoaded = pageLoaded;
 
   module.exports = {
-      testString: function testString(str) {
+    testString: function testString() {
       return false;
-    }
+    },
+    createOption,
   };
 })();
