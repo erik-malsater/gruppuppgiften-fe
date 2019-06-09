@@ -100,7 +100,6 @@
       })
         .then(() => {
           $animalAdd.setAttribute('data-loaded', 'true');
-          populateSelect(type);
         });
     });
   }
