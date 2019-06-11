@@ -1,7 +1,8 @@
 // globals document, window, module
-"use strict";
 
-(function IIFE(){
+'use strict';
+
+(function IIFE() {
   const remoteUrl = 'localhost:3000';
   let animalType = '';
   const $animalSelect = document.getElementById('animal-select');
@@ -11,14 +12,14 @@
   const $myForm = document.getElementById('animal-data');
 
   function clearElement(element) {
-    while(element.firstChild) {
+    while (element.firstChild) {
       element.removeChild(element.firstChild);
     }
   }
 
   function clearForm(form) {
     form[0].selectedIndex = 0;
-    for(let i = 1; i < form.length - 1; i++) {
+    for (let i = 1; i < form.length - 1; i = i + 1) {
       form[i].value = '';
     }
   }
@@ -31,13 +32,11 @@
     return $option;
   }
 
-  
-
   function populateSelect(type) {
     clearElement($animalSelect);
     $animalSelect.setAttribute('data-loaded', 'false');
     fetch(`http://${remoteUrl}/${type}s`)
-      .then((response) => response.json())
+      .then(response => response.json())
       .then((data) => {
         const animals = data.data;
         const $defaultOption = createOption(null, 'Select animal');
@@ -53,13 +52,13 @@
   function getByTypeAndId(type, id) {
     $animalDescription.setAttribute('data-loaded', 'false');
     clearElement($animalDescription);
-    
+
     fetch(`http://${remoteUrl}/${type}/${id}`)
-      .then((response) => response.json())
+      .then(response => response.json())
       .then((data) => {
-        let text = JSON.stringify(data.data, null, '\t');
+        let text = JSON.stringify(data.data, null);
         text = text.replace(/['"{}]+/g, '');
-        const $text = document.createTextNode('Type: ' + type + ', ' + text);
+        const $text = document.createTextNode(`Type: ${type}, ${text}`);
         $animalDescription.appendChild($text);
         $animalDescription.setAttribute('data-loaded', 'true');
       });
@@ -72,7 +71,7 @@
     });
   }
 
-  function listenToType(){
+  function listenToType() {
     $typeSelect.addEventListener('change', (e) => {
       const type = e.target.selectedOptions[0].value;
       animalType = type;
@@ -88,7 +87,7 @@
       const dataObject = {
         name: $myForm[1].value,
         color: $myForm[2].value,
-        age: $myForm[3].value
+        age: $myForm[3].value,
       };
       clearForm($myForm);
       fetch(`http://${remoteUrl}/${type}`, {
@@ -117,5 +116,7 @@
       return false;
     },
     createOption,
+    getByTypeAndId,
+    clearElement,
   };
 })();
