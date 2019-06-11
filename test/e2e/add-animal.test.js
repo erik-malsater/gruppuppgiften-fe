@@ -30,38 +30,39 @@ describe('e2e test for adding an animal', () => {
       //Kolla att formuläret är tomt
       driver.wait(until.elementLocated(By.id('add-type-select')), timeout)
       // Klicka på dog-elementet
-          .then((select) => {
-            driver.wait(until.elementIsVisible(select));
-            select.click();
-            return select;
-            // return formSelect.click();
-          })
-          .then((select) => select.findElements(By.tagName('option')))
-          .then((options) => {
-            driver.wait(until.elementIsVisible(options[1]));
-            return options[1].click();
-          })
-          .then(() => driver.wait(until.elementLocated(By.id('add-animal-name')), timeout))
-          .then((nameInput) => {
-            nameInput.sendKeys('Majsan');
-          })
-          .then(() => driver.wait(until.elementLocated(By.id('add-animal-color')), timeout))
-          .then((colorInput) => {
-            colorInput.sendKeys('Blå');
-          })
-          .then(() => driver.wait(until.elementLocated(By.id('add-animal-age')), timeout))
-          .then((ageInput) => {
-            ageInput.sendKeys('9');
-          })
-          .then(() => driver.wait(until.elementLocated(By.id('animal-add')), timeout))
-          .then((button) => {
-            button.click();
-            // return button;
-            // return driver.findElement(By.id('add-animal-age')).getAttribute('value')
-          })
-          .then(() => {driver.findElement(By.id('add-animal-age')).getAttribute('value')})
-          .then((inputValue) => {
-            expect(inputValue).to.equal('')
-          });
+        .then((select) => {
+          driver.wait(until.elementIsVisible(select));
+          select.click();
+          return select;
+          // return formSelect.click();
+        })
+        .then((select) => select.findElements(By.tagName('option')))
+        .then((options) => {
+          driver.wait(until.elementIsVisible(options[1]));
+          return options[1].click();
+        })
+        .then(() => driver.wait(until.elementLocated(By.id('add-animal-name')), timeout))
+        .then((nameInput) => {
+          nameInput.sendKeys('Majsan');
+        })
+        .then(() => driver.wait(until.elementLocated(By.id('add-animal-color')), timeout))
+        .then((colorInput) => {
+          colorInput.sendKeys('Blå');
+        })
+        .then(() => driver.wait(until.elementLocated(By.id('add-animal-age')), timeout))
+        .then((ageInput) => {
+          ageInput.sendKeys('9');
+        })
+        .then(() => driver.wait(until.elementLocated(By.id('animal-add')), timeout))
+        .then((button) => {
+          button.click();
+          // return button;
+          // return driver.findElement(By.id('add-animal-age')).getAttribute('value')
+        })
+        .then(() => driver.findElement(By.id('add-animal-color')).getAttribute("value"))
+        .then((input) => {
+          expect(input).toBe(""); 
+          done();
+        });
     });
 });
