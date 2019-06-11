@@ -24,17 +24,11 @@ describe('e2e test for adding an animal', () => {
     });
     
     test('filling out form and submitting will clear form and top selects', (done) => {
-      //Fylla i formuläret
-      //Submit/klicka knappen
-      //Kolla att att det är tomt i övre selects
-      //Kolla att formuläret är tomt
       driver.wait(until.elementLocated(By.id('add-type-select')), timeout)
-      // Klicka på dog-elementet
         .then((select) => {
           driver.wait(until.elementIsVisible(select));
           select.click();
           return select;
-          // return formSelect.click();
         })
         .then((select) => select.findElements(By.tagName('option')))
         .then((options) => {
@@ -56,10 +50,20 @@ describe('e2e test for adding an animal', () => {
         .then(() => driver.wait(until.elementLocated(By.id('animal-add')), timeout))
         .then((button) => {
           button.click();
-          // return button;
-          // return driver.findElement(By.id('add-animal-age')).getAttribute('value')
+        })
+        .then(() => driver.findElement(By.id('add-type-select')).getAttribute("value"))
+        .then((option) => {
+          expect(option).toBe(""); 
+        })
+        .then(() => driver.findElement(By.id('add-animal-name')).getAttribute("value"))
+        .then((input) => {
+          expect(input).toBe(""); 
         })
         .then(() => driver.findElement(By.id('add-animal-color')).getAttribute("value"))
+        .then((input) => {
+          expect(input).toBe(""); 
+        })
+        .then(() => driver.findElement(By.id('add-animal-age')).getAttribute("value"))
         .then((input) => {
           expect(input).toBe(""); 
           done();
