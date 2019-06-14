@@ -1,4 +1,4 @@
-<!doctype html>
+<!doctype html:5>
 <html lang="en">
   <head>
       <title>Little cat fanpage</title>
@@ -34,12 +34,14 @@
       <label for="add-animal-color">Color: </label>
       <input type="text" id="add-animal-color" name="color" value=""/>
       <label for="add-animal-age">Age: </label>
-      <input type="number" id="add-animal-age" name="age" value=""/>
+      <input type="number" id="add-animal-age" name="age" min="0" max="100" required value=""/>
+      <span class="validity"></span>
     
       <!-- <label for="animal-to-add">Enter animal data to add (JSON format)</label>
       <textarea id="animal-to-add"></textarea> -->
       
-      <button id="animal-add">Add animal</button>
+      <button type="submit" id="animal-add">Add animal</button>
+      <p id="error"></p>
     </form>
   </div>
   <script src="./js/animalApp.js"></script>
