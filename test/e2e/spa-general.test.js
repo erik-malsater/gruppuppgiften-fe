@@ -50,7 +50,7 @@ describe('html tests', () => {
       .then((options) => {
         options[2].click();
       })
-      .then(() => driver.wait(until.elementLocated(By.id('animal-select')), timeout))
+      .then(() => driver.wait(until.elementLocated(By.id('type-select')), timeout))
       .then(element => {
         if (!element) {
           throw new Error('animal-select not found');
