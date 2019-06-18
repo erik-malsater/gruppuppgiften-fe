@@ -41,7 +41,7 @@ describe('e2e test for adding an animal', () => {
         })
         .then(() => driver.wait(until.elementLocated(By.id('add-animal-color')), timeout))
         .then((colorInput) => {
-          colorInput.sendKeys('Blå');
+          colorInput.sendKeys('Blue');
         })
         .then(() => driver.wait(until.elementLocated(By.id('add-animal-age')), timeout))
         .then((ageInput) => {
@@ -49,7 +49,7 @@ describe('e2e test for adding an animal', () => {
         })
         .then(() => driver.wait(until.elementLocated(By.id('animal-add')), timeout))
         .then((button) => {
-          button.click();
+          return button.click();
         })
         .then(() => driver.findElement(By.id('add-type-select')).getAttribute("value"))
         .then((option) => {
